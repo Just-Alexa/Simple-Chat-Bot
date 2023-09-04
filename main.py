@@ -1,6 +1,8 @@
 import time
+from todolist import TodoList
 
-print("Hi there! I'm your chatbot.")
+
+
 time.sleep(1)  # Delay for 1 second
 print("My name is ...")
 time.sleep(1)  # Delay for 1 second
@@ -11,7 +13,7 @@ while True:
     time.sleep(0.5)  # Delay for 0.5 seconds
     print()
 
-    if bot_choice in ["y", "yeah", "yap", "ok", "yah", "sure", "yes"]:
+    if bot_choice in ["y", "ya", "yeah", "yap", "ok", "yah", "sure", "yes"]: #Added various yes options
         print("Great! What would you like to name me?")
         bot_name = input()
         time.sleep(1)  # Delay for 1 second
@@ -79,3 +81,4 @@ while True:
         break
     else:
         print("I didn't understand that. Please try again. (Y/N)")
+    print()
