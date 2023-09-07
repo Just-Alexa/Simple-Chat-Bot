@@ -1,11 +1,11 @@
 import time
-from todolist import TodoList
+import todolist  #Import the class TodoList into main.py
 
 
 
-time.sleep(1)  # Delay for 1 second
+time.sleep(1.4)  # Delay for 1.4 second
 print("My name is ...")
-time.sleep(1)  # Delay for 1 second
+time.sleep(1.4)  # Delay for 1.4 second
 
 print("Sorry, I don't have a name yet. Would you like to name me? (Y/N)")
 while True:
@@ -43,10 +43,10 @@ while True:
     time.sleep(0.5)  # Delay for 0.5 seconds
     print()
 
-    if bot_choice in ["y", "yeah", "yap", "ok", "yah", "sure", "yes"]:
+    if bot_choice in ["y", "yeah", "yap", "ok", "yah", "sure", "yes"]: #Added all variables of yes
         print("What would you like to do today?")
         options = [
-            "Organize my day (todo list)",
+            "Organize my day", #TodoList() #Added the class TodoList() to the list,
             "Play Games",
             "Chat",
             "Exit",
@@ -57,17 +57,15 @@ while True:
         choice = input("Enter the number of your choice (1-4): ")
 
         if choice == "1":
-            # Add code for the to-do list functionality here
             print("You chose to organize your day.")
-            # Implement the to-do list functionality or call a function here
+            todo_list = todolist.main()       #Added the class TodoList() to the list,
+            
             break
         elif choice == "2":
-            # Add code for playing games here
             print("You chose to play games.")
             # Implement game-related functionality or call a function here
             break
         elif choice == "3":
-            # Add code for chatting here
             print("You chose to chat.")
             # Implement chat-related functionality or call a function here
             break
