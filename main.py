@@ -1,7 +1,6 @@
 import time
 import todolist  #Import the class TodoList into main.py
-
-
+import chat
 
 time.sleep(1.4)  # Delay for 1.4 second
 print("My name is ...")
@@ -44,9 +43,9 @@ while True:
     print()
 
     if bot_choice in ["y", "yeah", "yap", "ok", "yah", "sure", "yes"]: #Added all variables of yes
-        print("What would you like to do today?")
+        print("What would you like to do today?") #Implemented the chatbot with options
         options = [
-            "Organize my day", #TodoList() #Added the class TodoList() to the list,
+            "Organize my day",
             "Play Games",
             "Chat",
             "Exit",
@@ -54,12 +53,11 @@ while True:
         for i, option in enumerate(options, start=1):
             print(f"{i}. {option}")
 
-        choice = input("Enter the number of your choice (1-4): ")
+        choice = input("Enter the number of your choice (1-4): ")  # Get user input
 
         if choice == "1":
             print("You chose to organize your day.")
-            todo_list = todolist.main()       #Added the class TodoList() to the list,
-            
+            todo_list = todolist.main()       #Added the class TodoList() to the list, and called the main function
             break
         elif choice == "2":
             print("You chose to play games.")
@@ -68,6 +66,7 @@ while True:
         elif choice == "3":
             print("You chose to chat.")
             # Implement chat-related functionality or call a function here
+            chat.main()
             break
         elif choice == "4":
             print("Goodbye!")
