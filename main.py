@@ -1,6 +1,7 @@
-import time
+import time  # Import the time module
 import todolist  #Import the class TodoList into main.py
 import chat
+import games
 
 time.sleep(1.4)  # Delay for 1.4 second
 print("My name is ...")
@@ -62,6 +63,7 @@ while True:
         elif choice == "2":
             print("You chose to play games.")
             # Implement game-related functionality or call a function here
+            games.main()
             break
         elif choice == "3":
             print("You chose to chat.")
