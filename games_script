@@ -1,0 +1,50 @@
+import unittest
+from unittest.mock import patch
+import io
+
+# Import the main function from the game script
+import main
+
+class TestRockPaperScissorsGame(unittest.TestCase):
+
+    @patch("builtins.input", side_effect=["Rock"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_user_wins(self, mock_stdout, mock_input):
+        # Test when the user wins
+        main()
+        expected_output = (
+            "Welcome to Rock, Paper, Scissors. Good luck!\n"
+            "Enter your choice (Rock, Paper, Scissors): \n"
+            "The computer chooses Scissors\n"
+            "Rock smashes Scissors. You win!\n"
+        )
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+    @patch("builtins.input", side_effect=["Rock"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_draw(self, mock_stdout, mock_input):
+        # Test when the game is a draw
+        main()
+        expected_output = (
+            "Welcome to Rock, Paper, Scissors. Good luck!\n"
+            "Enter your choice (Rock, Paper, Scissors): \n"
+            "The computer chooses Rock\n"
+            "Rock and Rock. It's a draw.\n"
+        )
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+    @patch("builtins.input", side_effect=["Banana"])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_invalid_input(self, mock_stdout, mock_input):
+        # Test when the user provides invalid input
+        main()
+        expected_output = (
+            "Welcome to Rock, Paper, Scissors. Good luck!\n"
+            "Enter your choice (Rock, Paper, Scissors): \n"
+            "The computer chooses Rock\n"
+            "You have to enter Rock, Paper, or Scissors\n"
+        )
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
+
+if __name__ == "__main__":
+    unittest.main()
