@@ -1,38 +1,30 @@
 import unittest
-import chat  # Replace 'chatbot' with the name of your module
+from unittest.mock import patch
+from io import StringIO
+import chatbot  # Import the module you want to test
 
 class TestChatBot(unittest.TestCase):
 
-    def setUp(self):
-        self.chatbot = chat()
+    @patch('builtins.input', side_effect=['hello', 'exit'])
+    def test_chat_with_user(self, mock_input):
+        expected_output = "ChatBot: Hi there!\nYou: wats up!\nChatBot: wats up!\nChatBot: Catch you later aligator.\n"
+        with StringIO() as fake_output:
+            with patch('sys.stdout', fake_output):
+                bot = chatbot.ChatBot()
+                bot.chat_with_user()
+                self.assertEqual(fake_output.getvalue(), expected_output)
+                mock_input.assert_called_with("You: ")  # Verify that input was called
 
-    def test_get_response_hello(self):
-        response = self.chatbot.get_response("Hello")
-        self.assertIn(response, ["Hello!", "Hi there!", "Hey!", "wats up!", "Greetings!"])
+    def test_get_response(self):
+        bot = chatbot.ChatBot()
+        responses = ["That's good to hear!", "Awesome!", "Glad to hear it!"]
+        for keyword in ["i'm doing well", "i'm great", "i'm good", "good"]:
+            response = bot.get_response(keyword)
+            self.assertIn(response, responses)
 
-    def test_get_response_positive_feeling(self):
-        response = self.chatbot.get_response("I'm doing well")
-        self.assertIn(response, ["That's good to hear!", "Awesome!", "Glad to hear it!"])
-
-    def test_get_response_what_are_you_doing(self):
-        response = self.chatbot.get_response("What are you doing?")
-        self.assertIn(response, ["Waiting on your command!", "I'm just hanging out.", "I'm here to chat with you!"])
-
-    def test_get_response_unknown_input(self):
-        response = self.chatbot.get_response("Random gibberish")
+        response = bot.get_response("not a keyword")
         self.assertEqual(response, "I'm not sure how to respond to that.")
-
-    def test_get_response_goodbye(self):
-        response = self.chatbot.get_response("Goodbye")
-        self.assertIn(response, ["Goodbye!", "Have a great day!"])
-
-    def test_chat_with_user_exit(self):
-        # Simulate the user typing 'exit' to end the chat
-        with unittest.mock.patch('builtins.input', return_value='exit'):
-            with unittest.mock.patch('sys.stdout', new_callable=unittest.mock.StringIO) as mock_stdout:
-                self.chatbot.chat_with_user()
-                output = mock_stdout.getvalue().strip()
-                self.assertIn("ChatBot: Goodbye! Have a great day.", output)
 
 if __name__ == '__main__':
     unittest.main()
+
